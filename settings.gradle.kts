@@ -1,5 +1,6 @@
 rootProject.name = "pmf"
 include(":PlanMonitorFunction")
+include(":calculator")
 
 pluginManagement {
     repositories {
