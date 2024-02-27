@@ -2,20 +2,19 @@ package ru.omgtu.matrix
 
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
-import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
-import ru.omgtu.matrix.dangersSelect.store.DangersSelectStoreFactory
-import ru.omgtu.matrix.dangersSelect.ui.DangersSelectScreen
+import com.arkivanov.decompose.DefaultComponentContext
+import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import ru.omgtu.matrix.di.initDi
+import ru.omgtu.matrix.navigation.NavRoot
+import ru.omgtu.matrix.navigation.NavView
 
 fun main() {
     initDi()
-    //val store = DangerStoreFactory(DefaultStoreFactory(), ResourceDangersNameRepository().getDangers()).create()
-    val store = DangersSelectStoreFactory(DefaultStoreFactory(), {}).create()
+    val navRoot = NavRoot(DefaultComponentContext(LifecycleRegistry()))
     singleWindowApplication(
         state = WindowState(),
         title = "app",
     ) {
-        //DangersScreen(store)
-        DangersSelectScreen(store)
+        NavView(navRoot)
     }
 }

@@ -26,6 +26,8 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.desktop.common)
             implementation(compose.desktop.currentOs)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
             implementation(project(":calculator"))
         }
 
