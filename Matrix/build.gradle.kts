@@ -8,7 +8,9 @@ group = "ru.omgtu.matrix"
 version = "1.0"
 
 kotlin {
-    jvm()
+    jvm{
+        
+    }
 
     sourceSets {
         jvmMain.dependencies {

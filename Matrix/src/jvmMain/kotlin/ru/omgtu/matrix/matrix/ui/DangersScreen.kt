@@ -1,4 +1,4 @@
-package ru.omgtu.matrix.ui
+package ru.omgtu.matrix.matrix.ui
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -13,7 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import ru.omgtu.matrix.store.DangerStore
+import ru.omgtu.matrix.matrix.store.DangerStore
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable

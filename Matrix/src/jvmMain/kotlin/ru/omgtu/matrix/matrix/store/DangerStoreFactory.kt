@@ -1,4 +1,4 @@
-package ru.omgtu.matrix.store
+package ru.omgtu.matrix.matrix.store
 
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.Store
