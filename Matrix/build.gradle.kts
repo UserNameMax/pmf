@@ -28,6 +28,7 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation(libs.decompose)
             implementation(libs.decompose.compose)
+            implementation(libs.desktop.uiKit)
             implementation(project(":calculator"))
         }
 

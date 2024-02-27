@@ -48,12 +48,12 @@ interface DangerStore : Store<DangerStore.Intent, DangerStore.State, Nothing> {
     }
 
     data class DangerParameters(
-        val dangerProbability: DangerProbability = DangerProbability.HIGH,
-        val time: Int = 8,
-        val humanProbability: HumanProbability = HumanProbability.HIGH,
-        val consequenceProbability: ConsequenceProbability = ConsequenceProbability.CATASTROPHIC,
-        val dangerValueWithHuman: DangerValue = DangerValue.Empty,
-        val dangerValue: DangerValue = DangerValue.Empty
+        val dangerProbability: DangerProbability? = null,
+        val time: Int? = null,
+        val humanProbability: HumanProbability? = null,
+        val consequenceProbability: ConsequenceProbability? = null,
+        val dangerValueWithHuman: DangerValue? = null,
+        val dangerValue: DangerValue? = null
     )
 
     data class State(
@@ -68,6 +68,7 @@ interface DangerStore : Store<DangerStore.Intent, DangerStore.State, Nothing> {
             val consequenceProbability: ConsequenceProbability,
             val dangerName: String
         ) : Intent
+        object OnBackButtonPress: Intent
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.omgtu.matrix
 
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
 import com.arkivanov.decompose.DefaultComponentContext
@@ -12,7 +13,7 @@ fun main() {
     initDi()
     val navRoot = NavRoot(DefaultComponentContext(LifecycleRegistry()))
     singleWindowApplication(
-        state = WindowState(),
+        state = WindowState(width = 1600.dp),
         title = "app",
     ) {
         NavView(navRoot)

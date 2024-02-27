@@ -14,7 +14,11 @@ import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.calculator.Calculator
 import ru.omgtu.pmf.model.Parameter
 
-class DangerStoreFactory(private val factory: StoreFactory, private val dangers: List<String>) : KoinComponent {
+class DangerStoreFactory(
+    private val factory: StoreFactory,
+    private val dangers: List<String>,
+    private val onBackPress: () -> Unit
+) : KoinComponent {
     private val storage: ParameterStorage by inject()
     private val calculator: Calculator by inject { parametersOf(dangers) }
 
@@ -118,6 +122,8 @@ class DangerStoreFactory(private val factory: StoreFactory, private val dangers:
                     )
                     dispatch(Message.UpdateParamsList(params))
                 }
+
+                DangerStore.Intent.OnBackButtonPress -> onBackPress()
             }
         }
     }

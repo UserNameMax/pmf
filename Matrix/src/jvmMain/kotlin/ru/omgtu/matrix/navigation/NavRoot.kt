@@ -3,6 +3,7 @@ package ru.omgtu.matrix.navigation
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
+import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory
 import kotlinx.serialization.Serializable
@@ -25,7 +26,8 @@ class NavRoot(componentContext: ComponentContext) : ComponentContext by componen
         is Destination.Matrix -> Child.Matrix(
             store = DangerStoreFactory(
                 factory = DefaultStoreFactory(),
-                dangers = destination.dangers
+                dangers = destination.dangers,
+                onBackPress = { navigation.pop() }
             ).create()
         )
 

@@ -7,6 +7,7 @@ koin = "3.5.3"
 mviKotlin = "3.3.0"
 compose = "1.5.12"
 decompose = "2.2.2"
+desktopUikit = "2.2.0"
 
 [libraries]
 
@@ -20,6 +21,7 @@ mvikotlin-main = { module = "com.arkivanov.mvikotlin:mvikotlin-main", version.re
 mvikotlin-coroutines = { module = "com.arkivanov.mvikotlin:mvikotlin-extensions-coroutines", version.ref = "mviKotlin" }
 decompose = { module = "com.arkivanov.decompose:decompose", version.ref = "decompose" }
 decompose-compose = { module = "com.arkivanov.decompose:extensions-compose-jetbrains", version.ref = "decompose" }
+desktop-uiKit = { module = "com.bybutter.compose:compose-jetbrains-expui-theme", version.ref = "desktopUikit" }
 
 
 [plugins]
