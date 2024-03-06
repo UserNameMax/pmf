@@ -94,8 +94,8 @@ fun DangerView(
             Row {
                 DropdownSelect(
                     modifier = Modifier.weight(1f).padding(horizontal = 5.dp),
-                    selectedValue = params.dangerProbability?.str ?: "",
-                    namedValues = DangerStore.DangerProbability.entries.map { Pair(it, it.str) },
+                    selectedValue = params.dangerProbability?.let { "${it.str} (${it.value * 5})" } ?: "",
+                    namedValues = DangerStore.DangerProbability.entries.map { Pair(it, "${it.str} (${it.value * 5})") },
                     onSelect = onSelectDangerProbability,
                     title = "Значение вероятности возникновения опасности"
                 )
@@ -110,24 +110,30 @@ fun DangerView(
                 Spacer(Modifier.width(10.dp))
                 DropdownSelect(
                     modifier = Modifier.weight(1f).padding(horizontal = 5.dp),
-                    selectedValue = params.humanProbability?.str ?: "",
-                    namedValues = DangerStore.HumanProbability.entries.map { Pair(it, it.str) },
+                    selectedValue = params.humanProbability?.let { "${it.str} (${it.value * 5})" } ?: "",
+                    namedValues = DangerStore.HumanProbability.entries.map { Pair(it, "${it.str} (${it.value * 5})") },
                     onSelect = onSelectHumanProbability,
                     title = "Значение человеческого фактора"
                 )
                 Spacer(Modifier.width(10.dp))
                 DropdownSelect(
                     modifier = Modifier.weight(1f).padding(horizontal = 5.dp),
-                    selectedValue = params.consequenceProbability?.str ?: "",
-                    namedValues = DangerStore.ConsequenceProbability.entries.map { Pair(it, it.str) },
+                    selectedValue = params.consequenceProbability?.let { "${it.str} (${it.value * 5})" } ?: "",
+                    namedValues = DangerStore.ConsequenceProbability.entries.map {
+                        Pair(
+                            it,
+                            "${it.str} (${it.value * 5})"
+                        )
+                    },
                     onSelect = onSelectConsequenceProbability,
                     title = "Тяжесть возникновения опасности"
                 )
             }
             Spacer(Modifier.height(10.dp))
-            Label("ПР с ЧФ: ${params.dangerValueWithHuman?.str ?: ""}")
+
+            Label(params.dangerValueWithHuman?.run { "ПР с ЧФ: $value ($str)" } ?: "ПР с ЧФ:")
             Spacer(Modifier.height(5.dp))
-            Label("ПР риск без ЧФ: ${params.dangerValue?.str ?: ""}")
+            Label(params.dangerValue?.run { "ПР: $value ($str)" } ?: "ПР:")
         }
 
     }
