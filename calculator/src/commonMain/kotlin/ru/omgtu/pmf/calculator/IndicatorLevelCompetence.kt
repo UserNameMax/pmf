@@ -2,21 +2,20 @@ package ru.omgtu.pmf.calculator
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
 import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.exception.ParameterNotFoundException
 import ru.omgtu.pmf.model.Parameter
 
-class DocumentCalculator(private val parameterStorage: ParameterStorage) : Calculator {
+class IndicatorLevelCompetence(private val parameterStorage: ParameterStorage) : Calculator {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
         listOf(
-            "общее количество необходимых локальных документов",
-            "количество разработанных СОТ локальных документов",
-            "количество актуальных локальных документов",
-            "оценка важности актуализации документов"
+            "оценка функциональной возможности реализации профессиональных компетенций (или «переработки») СОТ"
         )
 
     init {
@@ -24,11 +23,12 @@ class DocumentCalculator(private val parameterStorage: ParameterStorage) : Calcu
     }
 
     override fun calc(): Parameter {
-        val ND = parameterStorage.getParameterValue(params[0])
-        val nD = parameterStorage.getParameterValue(params[1])
-        val nAD = parameterStorage.getParameterValue(params[2])
-        val k = parameterStorage.getParameterValue(params[3])
-        val value = (nAD + (1 - k) * (nD - nAD)) / ND
+        val KD = parameterStorage.getParameterValue("Индикатр состояния локальных документов")
+        val KH = parameterStorage.getParameterValue("Индикатор устранения нарушений")
+        val KK = parameterStorage.getParameterValue("Индикатор контроля за условиями и охраной труда\"")
+        val KM = parameterStorage.getParameterValue("Индикатор планирования и реализации мероприятий")
+        val kP = parameterStorage.getParameterValue(params[0])
+        val value =
         return Parameter("Индикатр состояния локальных документов", value)
     }
 
