@@ -11,6 +11,7 @@ import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import io.kanro.compose.jetbrains.expui.control.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.omgtu.matrix.matrix.store.DangerStore
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -43,7 +44,8 @@ fun DangersScreen(store: DangerStore) {
                 )
             )
         },
-        onBackPress = { store.accept(DangerStore.Intent.OnBackButtonPress) }
+        onBackPress = { store.accept(DangerStore.Intent.OnBackButtonPress) },
+        profession = state.profession
     )
 }
 
@@ -55,9 +57,12 @@ fun DangersView(
     onSelectTime: (Int, String) -> Unit,
     onSelectHumanProbability: (DangerStore.HumanProbability, String) -> Unit,
     onSelectConsequenceProbability: (DangerStore.ConsequenceProbability, String) -> Unit,
-    onBackPress: () -> Unit
+    onBackPress: () -> Unit,
+    profession: String
 ) {
     Column(modifier.padding(10.dp)) {
+        Label(profession)
+        Spacer(Modifier.height(5.dp))
         LazyColumn(Modifier.weight(1f)) {
             items(dangers) {
                 val (dangerName, dangerParams) = it
@@ -118,7 +123,8 @@ fun DangerView(
                 Spacer(Modifier.width(10.dp))
                 DropdownSelect(
                     modifier = Modifier.weight(1f).padding(horizontal = 5.dp),
-                    selectedValue = params.consequenceProbability?.let { "${it.str} (${it.value * 5})" } ?: "",
+                    selectedValue = params.consequenceProbability?.let { "${it.str} (${it.value.roundToInt() * 5})" }
+                        ?: "",
                     namedValues = DangerStore.ConsequenceProbability.entries.map {
                         Pair(
                             it,
@@ -131,9 +137,9 @@ fun DangerView(
             }
             Spacer(Modifier.height(10.dp))
 
-            Label(params.dangerValueWithHuman?.run { "ПР с ЧФ: $value ($str)" } ?: "ПР с ЧФ:")
+            Label(params.dangerValueWithHuman?.run { "ПР с ЧФ: ${String.format("%.2f", value)} ($str)" } ?: "ПР с ЧФ:")
             Spacer(Modifier.height(5.dp))
-            Label(params.dangerValue?.run { "ПР: $value ($str)" } ?: "ПР:")
+            Label(params.dangerValue?.run { "ПР: ${String.format("%.2f", value)} ($str)" } ?: "ПР:")
         }
 
     }

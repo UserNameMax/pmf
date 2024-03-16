@@ -2,7 +2,9 @@ package ru.omgtu.matrix.di
 
 import org.koin.dsl.module
 import ru.omgtu.matrix.repository.DangersNameRepository
+import ru.omgtu.matrix.repository.ProfessionRepository
 import ru.omgtu.matrix.repository.ResourceDangersNameRepository
+import ru.omgtu.matrix.repository.ResourceProfessionRepository
 import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.calculator.Calculator
 import ru.omgtu.pmf.calculator.DangerCalculator
@@ -29,4 +31,5 @@ val diModule = module {
         СompositionCalculator(calculators)
     }
     factory<DangersNameRepository> { ResourceDangersNameRepository() }
+    factory<ProfessionRepository> { ResourceProfessionRepository() }
 }

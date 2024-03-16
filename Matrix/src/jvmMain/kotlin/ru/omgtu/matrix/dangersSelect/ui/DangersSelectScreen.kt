@@ -15,6 +15,7 @@ import io.kanro.compose.jetbrains.expui.control.OutlineButton
 import io.kanro.compose.jetbrains.expui.control.TextField
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.omgtu.matrix.dangersSelect.store.DangersSelectStore
+import ru.omgtu.matrix.matrix.ui.DropdownSelect
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
@@ -33,7 +34,11 @@ fun DangersSelectScreen(store: DangersSelectStore) {
                 }
             store.accept(intent)
         },
-        onDone = { store.accept(DangersSelectStore.Intent.OnOpenMatrix) })
+        onDone = { store.accept(DangersSelectStore.Intent.OnOpenMatrix) },
+        selectedProfession = state.selectProfession,
+        professions = state.professions,
+        onProfessionSelect = { store.accept(DangersSelectStore.Intent.OnSelectProfession(it)) }
+    )
 }
 
 @Composable
@@ -42,12 +47,21 @@ fun DangersSelectView(
     selectedDangers: List<String>,
     onInputSearchText: (String) -> Unit,
     onSelectDanger: (String) -> Unit,
-    onDone: () -> Unit
+    onDone: () -> Unit,
+    selectedProfession: String,
+    professions: List<String>,
+    onProfessionSelect: (String) -> Unit
 ) {
     var searchText by remember { mutableStateOf("") }
     Column(Modifier.padding(5.dp)) {
+        DropdownSelect(
+            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            selectedValue = selectedProfession,
+            namedValues = professions.map { Pair(it, it) },
+            onSelect = onProfessionSelect
+        )
         Row(Modifier.fillMaxWidth().padding(5.dp)) {
-            TextField(modifier = Modifier.weight(1f),value = searchText, onValueChange = {
+            TextField(modifier = Modifier.weight(1f), value = searchText, onValueChange = {
                 searchText = it
                 onInputSearchText(it)
             })

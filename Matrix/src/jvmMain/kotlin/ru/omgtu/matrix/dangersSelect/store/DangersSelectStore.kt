@@ -8,7 +8,13 @@ interface DangersSelectStore : Store<DangersSelectStore.Intent, DangersSelectSto
         data class OnDeleteDanger(val danger: String) : Intent
         object OnOpenMatrix : Intent
         data class OnSearch(val searchString: String) : Intent
+        data class OnSelectProfession(val profession: String) : Intent
     }
 
-    data class State(val dangers: List<String>, val selectedDangers: List<String>)
+    data class State(
+        val dangers: List<String>,
+        val selectedDangers: List<String>,
+        val professions: List<String>,
+        val selectProfession: String
+    )
 }
