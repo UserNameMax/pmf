@@ -1,6 +1,5 @@
 package ru.omgtu.pmf
 
-import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
 import com.arkivanov.mvikotlin.main.store.DefaultStoreFactory

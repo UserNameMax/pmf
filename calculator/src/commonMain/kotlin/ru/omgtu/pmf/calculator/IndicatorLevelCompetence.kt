@@ -29,7 +29,7 @@ class IndicatorLevelCompetence(private val parameterStorage: ParameterStorage) :
         val KM = parameterStorage.getParameterValue("Индикатор планирования и реализации мероприятий")
         val kP = parameterStorage.getParameterValue(params[0])
         val value =
-        return Parameter("Индикатр состояния локальных документов", value)
+        return Parameter("Индикатр состояния локальных документов", 5.0) // TODO
     }
 
     private fun startCheckStorage() {
