@@ -10,7 +10,7 @@ import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.exception.ParameterNotFoundException
 import ru.omgtu.pmf.model.Parameter
 
-class PlanningAndImplementation(private val parameterStorage: ParameterStorage) : Calculator {
+class PlanningAndImplementation(private val parameterStorage: ParameterStorage) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
@@ -39,6 +39,10 @@ class PlanningAndImplementation(private val parameterStorage: ParameterStorage) 
 
         val value = 0.25 * (mH / MH + mVP / MVP + mM / MM + kPR)
         return Parameter("Индикатор планирования и реализации мероприятий", value)
+    }
+
+    override val paramsTypedList: List<Parameter> = params.map {
+        Parameter(name = it, value = 0.0, validation = {} )
     }
 
     private fun startCheckStorage() {

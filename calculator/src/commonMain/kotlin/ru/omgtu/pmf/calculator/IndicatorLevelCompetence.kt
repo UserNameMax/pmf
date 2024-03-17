@@ -10,12 +10,13 @@ import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.exception.ParameterNotFoundException
 import ru.omgtu.pmf.model.Parameter
 
-class IndicatorLevelCompetence(private val parameterStorage: ParameterStorage) : Calculator {
+class IndicatorLevelCompetence(private val parameterStorage: ParameterStorage) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
         listOf(
-            "оценка функциональной возможности реализации профессиональных компетенций (или «переработки») СОТ"
+            "оценка функциональной возможности реализации профессиональных компетенций (или «переработки») СОТ",
+            ""
         )
 
     init {
@@ -25,11 +26,15 @@ class IndicatorLevelCompetence(private val parameterStorage: ParameterStorage) :
     override fun calc(): Parameter {
         val KD = parameterStorage.getParameterValue("Индикатр состояния локальных документов")
         val KH = parameterStorage.getParameterValue("Индикатор устранения нарушений")
-        val KK = parameterStorage.getParameterValue("Индикатор контроля за условиями и охраной труда\"")
+        val KK = parameterStorage.getParameterValue("Индикатор контроля за условиями и охраной труда")
         val KM = parameterStorage.getParameterValue("Индикатор планирования и реализации мероприятий")
         val kP = parameterStorage.getParameterValue(params[0])
-        val value =
-        return Parameter("Индикатр состояния локальных документов", 5.0) // TODO
+        val value = (KD + KH + KK + KK)*kP*0.25f
+        return Parameter("Индикатр состояния локальных документов", value) // TODO
+    }
+
+    override val paramsTypedList: List<Parameter> = params.map {
+        Parameter(name = it, value = 0.0, validation = {} )
     }
 
     private fun startCheckStorage() {

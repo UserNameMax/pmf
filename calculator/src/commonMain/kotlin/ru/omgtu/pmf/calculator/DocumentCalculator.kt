@@ -8,7 +8,7 @@ import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.exception.ParameterNotFoundException
 import ru.omgtu.pmf.model.Parameter
 
-class DocumentCalculator(private val parameterStorage: ParameterStorage) : Calculator {
+class DocumentCalculator(private val parameterStorage: ParameterStorage) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
@@ -30,6 +30,11 @@ class DocumentCalculator(private val parameterStorage: ParameterStorage) : Calcu
         val k = parameterStorage.getParameterValue(params[3])
         val value = (nAD + (1 - k) * (nD - nAD)) / ND
         return Parameter("Индикатр состояния локальных документов", value)
+    }
+
+    //TODO
+    override val paramsTypedList: List<Parameter> = params.map {
+        Parameter(name = it, value = 0.0, validation = {} )
     }
 
     private fun startCheckStorage() {

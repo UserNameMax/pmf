@@ -24,6 +24,7 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.desktop.common)
             implementation(compose.desktop.currentOs)
+            implementation(libs.desktop.uiKit)
             implementation(project(":calculator"))
         }
 

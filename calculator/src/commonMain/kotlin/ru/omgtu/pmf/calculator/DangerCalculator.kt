@@ -13,8 +13,8 @@ import ru.omgtu.pmf.model.Parameter
 class DangerCalculator(
     private val parameterStorage: ParameterStorage,
     private val dangerName: String,
-    private val calcHumanFactor: Boolean
-) : Calculator {
+    private val calcHumanFactor: Boolean,
+) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> = listOf(
@@ -44,6 +44,8 @@ class DangerCalculator(
             }
         }
     }
+
+    override val paramsTypedList: List<Parameter> = listOf()
 
     init {
         startCheckStorage()

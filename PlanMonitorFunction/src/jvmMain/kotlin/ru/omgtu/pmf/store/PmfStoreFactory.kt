@@ -13,17 +13,18 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.calculator.Calculator
+import ru.omgtu.pmf.calculator.CalculatorWithValidation
 import ru.omgtu.pmf.model.Parameter
 
 class PmfStoreFactory(private val storeFactory: StoreFactory) : KoinComponent {
     private val parameterStorage: ParameterStorage by inject()
-    private val calculator: Calculator by inject()
+    private val calculator: CalculatorWithValidation by inject()
 
     @OptIn(ExperimentalMviKotlinApi::class)
     fun create(): PmfStore =
         object : PmfStore, Store<PmfStore.Intent, PmfStore.State, Nothing> by storeFactory.create(
             name = "PmfStoreFactory",
-            initialState = PmfStore.State.defaultState.copy(parametersName = calculator.params),
+            initialState = PmfStore.State.defaultState.copy(parametersName = calculator.paramsTypedList),
             bootstrapper = coroutineBootstrapper {
                 launch {
                     calculator.flow.collect {

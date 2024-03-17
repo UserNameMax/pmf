@@ -10,7 +10,7 @@ import ru.omgtu.pmf.ParameterStorage
 import ru.omgtu.pmf.exception.ParameterNotFoundException
 import ru.omgtu.pmf.model.Parameter
 
-class EliminationCalculator(private val parameterStorage: ParameterStorage) : Calculator {
+class EliminationCalculator(private val parameterStorage: ParameterStorage) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
@@ -33,6 +33,11 @@ class EliminationCalculator(private val parameterStorage: ParameterStorage) : Ca
         val value = 0.5 * ((po - pn) / po + nn / no)
         return Parameter(name = "Индикатор устранения нарушений", value = value)
     }
+
+    override val paramsTypedList: List<Parameter> = params.map {
+        Parameter(name = it, value = 0.0, validation = {} )
+    }
+
 
     private fun startCheckStorage() {
         CoroutineScope(Dispatchers.IO).launch {

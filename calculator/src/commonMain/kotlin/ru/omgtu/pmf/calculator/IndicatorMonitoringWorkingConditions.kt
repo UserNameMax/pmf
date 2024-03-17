@@ -12,7 +12,7 @@ import ru.omgtu.pmf.model.Parameter
 
 class IndicatorMonitoringWorkingConditions(
     private val parameterStorage: ParameterStorage
-) : Calculator {
+) : CalculatorWithValidation {
     private val mutableFlow = MutableSharedFlow<Parameter>()
     override val flow: SharedFlow<Parameter> = mutableFlow.asSharedFlow()
     override val params: List<String> =
@@ -26,6 +26,10 @@ class IndicatorMonitoringWorkingConditions(
 
     init {
         startCheckStorage()
+    }
+
+    override val paramsTypedList: List<Parameter> = params.map {
+        Parameter(name = it, value = 0.0, validation = {} )
     }
 
     override fun calc(): Parameter {

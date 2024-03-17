@@ -1,15 +1,17 @@
 package ru.omgtu.pmf.ui
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.*
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import ru.omgtu.pmf.store.PmfStore
+import io.kanro.compose.jetbrains.expui.control.*
+
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @Composable
