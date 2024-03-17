@@ -27,14 +27,22 @@ class NavRoot(componentContext: ComponentContext) : ComponentContext by componen
             store = DangerStoreFactory(
                 factory = DefaultStoreFactory(),
                 dangers = destination.dangers,
-                onBackPress = { navigation.pop() }
+                onBackPress = { navigation.pop() },
+                profession = destination.profession
             ).create()
         )
 
         is Destination.SelectDangers -> Child.SelectDangers(
             store = DangersSelectStoreFactory(
                 defaultStoreFactory = DefaultStoreFactory(),
-                navigateToMatrix = { dangers -> navigation.push(Destination.Matrix(dangers)) }).create()
+                navigateToMatrix = { dangers, profession ->
+                    navigation.push(
+                        Destination.Matrix(
+                            dangers,
+                            profession
+                        )
+                    )
+                }).create()
         )
     }
 
@@ -44,7 +52,7 @@ class NavRoot(componentContext: ComponentContext) : ComponentContext by componen
         object SelectDangers : Destination
 
         @Serializable
-        data class Matrix(val dangers: List<String>) : Destination
+        data class Matrix(val dangers: List<String>, val profession: String) : Destination
     }
 
     sealed interface Child {

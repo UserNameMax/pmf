@@ -17,7 +17,8 @@ import ru.omgtu.pmf.model.Parameter
 class DangerStoreFactory(
     private val factory: StoreFactory,
     private val dangers: List<String>,
-    private val onBackPress: () -> Unit
+    private val onBackPress: () -> Unit,
+    private val profession: String
 ) : KoinComponent {
     private val storage: ParameterStorage by inject()
     private val calculator: Calculator by inject { parametersOf(dangers) }
@@ -26,7 +27,10 @@ class DangerStoreFactory(
     fun create(): DangerStore =
         object : DangerStore, Store<DangerStore.Intent, DangerStore.State, Nothing> by factory.create(
             name = "DangerStore",
-            initialState = DangerStore.State(parameters = dangers.map { Pair(it, DangerStore.DangerParameters()) }),
+            initialState = DangerStore.State(
+                parameters = dangers.map { Pair(it, DangerStore.DangerParameters()) },
+                profession = profession
+            ),
             bootstrapper = coroutineBootstrapper {
                 launch {
                     calculator.flow.collect { dispatch(Action.CollectNewParameter(it)) }

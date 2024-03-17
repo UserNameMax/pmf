@@ -20,11 +20,11 @@ interface DangerStore : Store<DangerStore.Intent, DangerStore.State, Nothing> {
     }
 
     enum class ConsequenceProbability(val str: String, val value: Double) {
-        MIN("Минимальные", 1.0 / 5),
-        MINOR("Незначительные", 2.0 / 5),
-        AVERAGE("Средние", 3.0 / 5),
-        SIGNIFICANT("Значительные", 4.0 / 5),
-        CATASTROPHIC("Катастрофические", 5.0 / 5)
+        MIN("Минимальная", 1.0 / 5),
+        MINOR("Незначительная", 2.0 / 5),
+        AVERAGE("Средняя", 3.0 / 5),
+        SIGNIFICANT("Значительная", 4.0 / 5),
+        CATASTROPHIC("Катастрофическая", 5.0 / 5)
     }
 
     sealed class DangerValue(val str: String, val value: Double) {
@@ -57,7 +57,8 @@ interface DangerStore : Store<DangerStore.Intent, DangerStore.State, Nothing> {
     )
 
     data class State(
-        val parameters: List<Pair<String, DangerParameters>> = listOf()
+        val parameters: List<Pair<String, DangerParameters>> = listOf(),
+        val profession: String
     )
 
     sealed interface Intent {
